@@ -1,54 +1,54 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%调用ShanghaiTechThesis.cls文档声明
+% 调用ShanghaiTechThesis.cls文档声明
 \documentclass[master,spst]{ShanghaiTechThesis}
     % 本科生使用 bachelor，硕士使用 master，博士使用 doctor
     % 物质学院用 spst，生命学院用 slst，信息学院用 sist
     % 以上两个选项必须各选一，否则会报错，具体代码见ShanghaiTechThesis.cls文档代码
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %导言区
-    \classification{}   % 分类号
-    \confidential{}     % 密级
-    \UDC{}              % UDC
-    \IDnumber{}         % 学号
-    \cntitle{}          % 中文标题
-    \entitle{}          % 英文标题
-    \cnauthor{}         % 作者中文名
-    \enauthor{}         % 作者英文名
-    \cnadvisor{}        % 导师中文名
-    \enadvisor{}        % 导师英文名
-    \cnresearch{}       % 研究方向
-    \enresearch{}       % research
-    \cnsubmitdate{}     % 中文提交日期
-    \ensubmitdate{}     % 英文提交日期
-    \jobbegin{}         % 工作开始日期
-    \jobend{}           % 工作结束日期
-    \reportfinish{}     % 论文完成日期
-    \cnmajor{}          % 专业中文名
-    \enmajor{}          % 专业英文名
+    \classification{}             % 分类号
+    \confidential{}               % 密级
+    \UDC{}                        % UDC
+    \IDnumber{}                   % 学号
+    \cntitle{}                    % 中文标题
+    %\scntitle{}                  % 中文标题过长时启用
+    \entitle{}                    % 英文标题
+    \sentitle{}                   % 英文标题过长时换行部分
+    \cnauthor{}                   % 作者中文名
+    \enauthor{}                   % 作者英文名
+    \cnadvisor{}                  % 导师中文名
+    \enadvisor{}                  % 导师英文名
+    \cnresearch{}                 % 研究方向
+    \enresearch{}                 % research
+    \cnmajor{}                    % 专业中文名
+    \enmajor{}                    % 专业英文名
+    \cnsubmitdate{}               % 中文提交日期
+    \ensubmitdate{}               % 英文提交日期
+    % \jobbegin{}\jobend{} \reportfinish{} %需要时修改 .cls 文档并在此启用
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+\maketitle\makeentitle            % maketitle 后面插入各种说明文档，不计入目录，用于插入各种说明性文档
+    \declarerriginal              % 原创性声明
+    \declareauthorization         % 授权声明
 
-\maketitle\makeentitle%maketitle 后面插入各种说明文档，不计入目录，用于插入各种说明性文档
-    \declarerriginal
-    \declareauthorization
-
-\frontmatter\pagestyle{main}%frontmatter 后 include 的 separatepage 开始有页码且页码为罗马数字
+\frontmatter\pagestyle{main}      % frontmatter 后 include 的 separatepage 开始有页码且页码为罗马数字
     \include{separate-page/abstract}
     \tableofcontents
-    \listoffigures\addcontentsline{toc}{chapter}{\listfigurename} %将插图目录加入全文目录
-    \listoftables\addcontentsline{toc}{chapter}{\listtablename}  %将表格目录加入全文目录
-    \listofalgorithms\addcontentsline{toc}{chapter}{\listalgorithmname} %将算法目录加入全文目录
-    \include{separate-page/mainsymbol}
+    \listoffigures\addcontentsline{toc}{chapter}{\listfigurename}       % 插入插图目录页，并加入全文目录
+    \listoftables\addcontentsline{toc}{chapter}{\listtablename}         % 插入表格目录页，并加入全文目录
+    \listofalgorithms\addcontentsline{toc}{chapter}{\listalgorithmname} % 插入算法目录页，并加入全文目录
+    \include{separate-page/mainsymbol}   % 插入主要符号对照表
 
-\mainmatter%mainmatter 后面是正文章节。每一章在 chapter 文件夹里分别编译。
+\mainmatter                       % mainmatter 后面是正文章节。每一章在 chapter 文件夹里分别编译。
     \include{chapter/chapter1}
-    % \include{chapter/chapter2}
+    % \include{chapter/chapter2}  
     % \include{chapter/chapter3}
     % \include{chapter/chapter4}
     % \include{chapter/chapter5}
     % \include{chapter/chapter6}
     % \include{chapter/chapter7}
-    \appendix	% 使用英文字母对附录编号，重新定义附录中的公式、图图表编号样式
+
+    \appendix	                  % 使用英文字母对附录编号，重新定义附录中的公式、图图表编号样式
     \renewcommand\theequation{\Alph{chapter}--\arabic{equation}}	
     \renewcommand\thefigure{\Alph{chapter}--\arabic{figure}}
     \renewcommand\thetable{\Alph{chapter}--\arabic{table}}
@@ -63,10 +63,10 @@
     % \include{appendix/appendix6}
     % \include{appendix/appendix7}
 
-\backmatter%文后无编号
-    \bibliographystyle{plain}\bibliography{bibliography/book,bibliography/journal} %生成文献
+\backmatter                     % 文后无编号
+    \bibliographystyle{plain}\bibliography{bibliography/book,bibliography/journal} % 生成文献
 
-    % 致谢、发表论文、申请专利、参与项目、简历
+    % 致谢、发表论文、申请专利、参与项目、简历等
     % 用于盲审的论文需隐去致谢、发表论文、申请专利、参与的项目
     % "研究生学位论文送盲审印刷格式的统一要求"
     % http://www.gs.sjtu.edu.cn/inform/3/2015/20151120_123928_738.htm

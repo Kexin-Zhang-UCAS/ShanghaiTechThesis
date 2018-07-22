@@ -275,7 +275,8 @@
 		% The following add some extra commands to LaTeX algorithmicx package
 		% Assert
 		\algnewcommand\algorithmicassert{\texttt{assert}}
-		\algnewcommand\Assert[1]{\State \algorithmicassert(#1)}%	
+		\algnewcommand\Assert[1]{\State \algorithmicassert(#1)}%
+		\renewcommand{\listalgorithmname}{算法}
 	%
 
 
@@ -382,8 +383,9 @@
 
 	% define title and author   定义中英文title和author
 	\newcommand{\cntitle}[1][中文标题]{\def\stu@cntitle{#1}}
+	% \newcommand{\scntitle}[1][中文标题2]{\def\stu@scntitle{#1}}
 	\newcommand{\entitle}[1][English Title]{\def\stu@entitle{#1}}
-
+	\newcommand{\sentitle}[1][]{\def\stu@sentitle{#1}}
 	% 作者
 	\newcommand{\cnauthor}[1][姓名]{\def\stu@cnauthor{#1}}
 	\newcommand{\enauthor}[1][name]{\def\stu@enauthor{#1}}
@@ -395,17 +397,16 @@
 	\newcommand{\cnresearch}[1][研究方向]{\def\stu@cnresearch{#1}}
 	\newcommand{\enresearch}[1][research]{\def\stu@enresearch{#1}}
 
-	% define time
-	\newcommand{\cnsubmitdate}[1][]{\def\stu@cnsubmitdate{#1}}
-	\newcommand{\ensubmitdate}[1][]{\def\stu@ensubmitdate{#1}}
-
-	\newcommand{\jobbegin}[1][]{\def\stu@jobbegin{#1}}
-	\newcommand{\jobend}[1][]{\def\stu@jobend{#1}}
-	\newcommand{\reportfinish}[1][]{\def\stu@reportfinish{#1}}
-
 	% major 二级学科
 	\newcommand{\cnmajor}[1][学科（专业）]{\def\stu@cnmajor{#1}}
 	\newcommand{\enmajor}[1][major]{\def\stu@enmajor{#1}}
+
+	% define time
+	\newcommand{\cnsubmitdate}[1][2000年1月1日]{\def\stu@cnsubmitdate{#1}}
+	\newcommand{\ensubmitdate}[1][Jan. 1st, 2000]{\def\stu@ensubmitdate{#1}}
+						% \newcommand{\jobbegin}[1][]{\def\stu@jobbegin{#1}}
+						% \newcommand{\jobend}[1][]{\def\stu@jobend{#1}}
+						% \newcommand{\reportfinish}[1][]{\def\stu@reportfinish{#1}}
 
 	% 定义下划线的长度及线上内容
 	\def\stu@underline[#1]#2{\underline{\hbox to #1{\hfill#2\hfill}}}
@@ -432,8 +433,9 @@
 			{\heiti\zihao{4}
 				\begin{tabular}{rl}
 					\begin{CJKfilltwosides}{7em}中文论文题目：\end{CJKfilltwosides}&\stuunderline[300pt]{\stu@cntitle}\\ [2mm]
+						                                                        % &\stuunderline[300pt]{\stu@scntitle}\\ [2mm]\\
 					\begin{CJKfilltwosides}{7em}英文论文题目：\end{CJKfilltwosides}&\stuunderline[300pt]{\stu@entitle}\\ [2mm]
-					% \begin{CJKfilltwosides}{7em}\end{CJKfilltwosides}&\stuunderline[300pt]{\value@setitle}\\ [2mm]
+																				  &\stuunderline[300pt]{\stu@sentitle}\\ [2mm]
 				\end{tabular}
 			}\\
 			\vspace{1cm}
@@ -455,7 +457,7 @@
 		\vspace*{50pt}   
 		\begin{center}
 			{\linespread{1.2}\selectfont
-			\sffamily\zihao{-1} \stu@entitle\\}
+			\sffamily\zihao{-1} \stu@entitle\\\stu@sentitle}
 			\vspace{1cm}
 			\vskip\stretch{1}
 			\begin{figure}[h]
@@ -484,8 +486,7 @@
 	\cleardoublepage
 	\thispagestyle{empty}
 	\begin{center}
-		{\bfseries\zihao{3} 上海科技大学}\\
-		{\bfseries\zihao{3} 学位论文原创性声明}
+		{\bfseries\zihao{3} 上海科技大学学位论文原创性声明}
 	\end{center}
 	\vskip 10pt
 	{\par\zihao{-4}本人郑重声明：所呈交的学位论文，是本人在导师的指导下， 
@@ -505,8 +506,7 @@
 	\cleardoublepage
 	\pagestyle{empty}
 	\begin{center}
-		{\bfseries\zihao{3} 上海科技大学}\\
-		{\bfseries\zihao{3} 学位论文版权使用授权书}
+	{\bfseries\zihao{3} 上海科技大学学位论文版权使用授权书}
 	\end{center}
 	\vskip 10pt
 	{\par\zihao{-4}本学位论文作者完全了解学校有关保留、使用学位论文的规定，

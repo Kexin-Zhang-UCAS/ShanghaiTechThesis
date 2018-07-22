@@ -40,7 +40,7 @@
 
 # \frontmatter 以上不计页码，以下开始有罗马数字页码
 
-        5. 依次导入中英文摘要、文档目录、插图目录和表格目录
+        5. 依次导入中英文摘要、文档目录、插图目录、表格目录和算法目录
 
 # \mainmatter 开始导入正式章节，页码转变为阿拉伯数字
 
@@ -58,31 +58,29 @@
 三、ShanghaiTechThesis.cls 文档类的基本结构
         1. 以 CTEXbook 文档类为基本模板，建立 ShanghaiTechThesis.cls 文档类，并增添学位和学院两个必选选项
         2. 对 CTEXbook 这个基础文档类进行设置
-        3. 导入基础宏包：
-                        （1）导入数学相关宏包
-                        （2）导入图形颜色等包
-                        （3）导入目录超链接等包并简单设置
-                        （4）导入页面设置包并简单设置
-                        （5）导入页眉页脚包并简单设置
+        3. 导入基础宏包：（1）导入目录超链接等包并简单设置
+                        （2）导入页面设置包并简单设置
+                        （3）导入页眉页脚包并简单设置
+                        （4）其他包
         4. 导入其他宏包：有待补充，自行设置
         5. 基础命令设置，主要是一些数学命令和定理类命令，可自行修改
         6. 标题页格式设置
         7. 创建原创性声明和授权声明命令
         8. 对 separate-page 文件夹里的文件进行基础设置，文件的具体内容在 separate-page 文件夹里的 tex 文件里修改
-        9. 其他一些小设置，如章节深度，目录内容控制等
+        9. 其他一些小设置，用于新代码测试
 
 四、使用模板方法
         1. \documentclass[master,spst]{ShanghaiTechThesis}
         % 本科生使用 bachelor，硕士使用 master，博士使用 doctor
         % 物质学院用 spst，生命学院用 slst，信息学院用 sist
-        %以上两个选项必须各选一，否则会报错，具体见ShanghaiTechThesis.cls文档代码
+        % 以上两个选项必须各选一，否则会报错，具体见 ShanghaiTechThesis.cls 文档代码
 
         2. 在 chapter 文件夹和 appendix 文件夹里按顺序编写论文，如需导入新的宏包，最好在 .cls 文件的4区导入
         文件引用的文献在 bibliography 文件夹里的 .bib 文件里编译
-        文件引用的图片放在 picture 里，用\includegraphics[]{picture/pic name}调用
+        文件引用的图片放在 picture 里，用 \includegraphics[]{picture/pic name} 调用
 
-        3. 对separate-page 里的文件进行增添和修改：修改直接在相应 .tex 文件里修改
-                                                增添则需在 .cls 文件里定义，在主 .tex 文件里合适区域导入
+        3. 对 separate-page 里的文件进行增添和修改：修改直接在相应 .tex 文件里修改
+                                                 增添则需在 .cls 文件里定义，在主 .tex 文件里合适区域导入
 
 
  
