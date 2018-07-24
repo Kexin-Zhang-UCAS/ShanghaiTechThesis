@@ -1,79 +1,71 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 调用ShanghaiTechThesis.cls文档声明
-\documentclass[master,spst]{ShanghaiTechThesis}
+\documentclass[doctor,spst]{ShanghaiTechThesis}
     % 本科生使用 bachelor，硕士使用 master，博士使用 doctor
     % 物质学院用 spst，生命学院用 slst，信息学院用 sist
     % 以上两个选项必须各选一，否则会报错，具体代码见ShanghaiTechThesis.cls文档代码
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %导言区
-    \classification{}             % 分类号
-    \confidential{}               % 密级
-    \UDC{}                        % UDC
-    \IDnumber{}                   % 学号
-    \cntitle{}                    % 中文标题
-    %\scntitle{}                  % 中文标题过长时启用
-    \entitle{}                    % 英文标题
-    \sentitle{}                   % 英文标题过长时换行部分
-    \cnauthor{}                   % 作者中文名
-    \enauthor{}                   % 作者英文名
-    \cnadvisor{}                  % 导师中文名
-    \enadvisor{}                  % 导师英文名
-    \cnresearch{}                 % 研究方向
-    \enresearch{}                 % research
-    \cnmajor{}                    % 专业中文名
-    \enmajor{}                    % 专业英文名
-    \cnsubmitdate{}               % 中文提交日期
-    \ensubmitdate{}               % 英文提交日期
-    % \jobbegin{}\jobend{} \reportfinish{} %需要时修改 .cls 文档并在此启用
+    \classification{分类号}           
+    \confidential{密级}             
+    \UDC{UDC}                     
+    \IDnumber{学号}               
+    \cntitle{上海科技大学学位论文\LaTeX 模板示例文档}                
+    %\scntitle{中文标题过长时启用}            
+    \entitle{A Sample Document for \LaTeX-basedd }                   
+    \sentitle{ShanghaiTech University Thesis Template}       %标题过长换行部分      
+    \cnauthor{作\quad 者}                  
+    \enauthor{Author}                  
+    \cnadvisor{导\quad 师}                  
+    \enadvisor{Advisor}                
+    \cnresearch{研究方向}                
+    \enresearch{research}               
+    \cnmajor{二级专业}                    
+    \enmajor{major}                   
+    \cnsubmitdate{2000年1月1日}              
+    \ensubmitdate{Jan. 1st, 2000}    
+    %未启用           
+    %\jobbegin{}
+    %\jobend{} 
+    %\reportfinish{} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \maketitle\makeentitle            % maketitle 后面插入各种说明文档，不计入目录，用于插入各种说明性文档
-    \declarerriginal              % 原创性声明
-    \declareauthorization         % 授权声明
+                                  % 标题页的编写最好在cls文件中，当然也可以 include
+    \include{declare/declareoriginal}           % 原创性声明
+    \include{declare/declareauthorization}      % 授权声明
 
 \frontmatter\pagestyle{main}      % frontmatter 后 include 的 separatepage 开始有页码且页码为罗马数字
-    \include{separate-page/abstract}
+    \include{frontmatter/abstract}
     \tableofcontents
     \listoffigures\addcontentsline{toc}{chapter}{\listfigurename}       % 插入插图目录页，并加入全文目录
     \listoftables\addcontentsline{toc}{chapter}{\listtablename}         % 插入表格目录页，并加入全文目录
     \listofalgorithms\addcontentsline{toc}{chapter}{\listalgorithmname} % 插入算法目录页，并加入全文目录
-    \include{separate-page/mainsymbol}   % 插入主要符号对照表
+    \include{frontmatter/mainsymbol}   % 插入主要符号对照表
 
 \mainmatter                       % mainmatter 后面是正文章节。每一章在 chapter 文件夹里分别编译。
-    \include{chapter/chapter1}
-    % \include{chapter/chapter2}  
-    % \include{chapter/chapter3}
-    % \include{chapter/chapter4}
-    % \include{chapter/chapter5}
-    % \include{chapter/chapter6}
-    % \include{chapter/chapter7}
-
-    \appendix	                  % 使用英文字母对附录编号，重新定义附录中的公式、图图表编号样式
+    \include{mainmatter/chapter1}
+    \include{mainmatter/chapter2}
+    \include{mainmatter/chapter3}
+\appendix	                  % 使用英文字母对附录编号，重新定义附录中的公式、图图表编号样式
     \renewcommand\theequation{\Alph{chapter}--\arabic{equation}}	
     \renewcommand\thefigure{\Alph{chapter}--\arabic{figure}}
     \renewcommand\thetable{\Alph{chapter}--\arabic{table}}
     \renewcommand\thealgorithm{\Alph{chapter}--\arabic{algorithm}}
     \renewcommand\thelstlisting{\Alph{chapter}--\arabic{lstlisting}}
     %% 附录内容，本科学位论文可以用翻译的文献替代。
-    \include{appendix/appendix1}
-    % \include{appendix/appendix2}
-    % \include{appendix/appendix3}
-    % \include{appendix/appendix4}
-    % \include{appendix/appendix5}
-    % \include{appendix/appendix6}
-    % \include{appendix/appendix7}
+    \include{mainmatter/appendix1}
+
 
 \backmatter                     % 文后无编号
     \bibliographystyle{plain}\bibliography{bibliography/book,bibliography/journal} % 生成文献
 
-    % 致谢、发表论文、申请专利、参与项目、简历等
+    % 致谢、发表论文、申请专利、参与项目、简历等, 用于盲审的论文需隐去致谢、发表论文、申请专利、参与的项目
     % 用于盲审的论文需隐去致谢、发表论文、申请专利、参与的项目
-    % "研究生学位论文送盲审印刷格式的统一要求"
-    % http://www.gs.sjtu.edu.cn/inform/3/2015/20151120_123928_738.htm
-    % 盲审删去删去致谢页
-    \include{separate-page/thanks}
-    \include{separate-page/pub}
-    \include{separate-page/resume}
+    % "研究生学位论文送盲审印刷格式的统一要求" http://www.gs.sjtu.edu.cn/inform/3/2015/20151120_123928_738.htm
+    \include{backmatter/thanks}
+    \include{backmatter/pub}
+    \include{backmatter/resume}
 
 
 \end{document}

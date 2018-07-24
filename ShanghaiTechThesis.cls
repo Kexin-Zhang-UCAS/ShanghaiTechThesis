@@ -1,6 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 模板的命名，增加模板可选项
 
 	% 定义上科大论文模板的类名为STUThesis
@@ -66,69 +65,82 @@
 	% 选用CTEX文档类,并固定格式，可更改
 	\LoadClass[a4paper, UTF8, twoside, openright, no-math]{ctexbook}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CTeX Settings 和一些文章基本设置
-% 名称：目录、表格索引、插图索引、算法、算法索引、代码
-	\ctexset{%
-		appendixname=附录,
-		contentsname={目\hspace{\ccwd}录},
-		listfigurename=插图,
-		listtablename=表格,
-		figurename=图,
-		tablename=表,
-		bibname=参考文献,
-		indexname=索引,
-	}
+	% 名称：目录、表格索引、插图索引、算法、算法索引、代码
+		\ctexset{%
+			appendixname=附录,
+			contentsname={目\hspace{\ccwd}录},
+			listfigurename=插图,
+			listtablename=表格,
+			figurename=图,
+			tablename=表,
+			bibname=参考文献,
+			indexname=索引,
+		}
 
-	% Title Settings at the chapter Level
-	\ctexset{chapter={
-		format={\centering},
-		nameformat={\Large\bfseries},
-		titleformat={\Large\bfseries},
-		aftername={\quad},
-		beforeskip={15\p@},
-		afterskip={12\p@},
+		% Title Settings at the chapter Level
+		\ctexset{chapter={
+			format={\centering},
+			nameformat={\Large\bfseries},
+			titleformat={\Large\bfseries},
+			aftername={\quad},
+			beforeskip={15\p@},
+			afterskip={12\p@},
+			}
 		}
-	}
-	% Title Settings at the section Level
-	\ctexset{section={
-		format={\large\bfseries},
-		afterskip={1.0ex \@plus .2ex},
+		% Title Settings at the section Level
+		\ctexset{section={
+			format={\large\bfseries},
+			afterskip={1.0ex \@plus .2ex},
+			}
 		}
-	}
-	% Title Settings at the subection Level
-	\ctexset{subsection={
-		format={\bfseries\normalsize},
-		indent={0\ccwd},
-		afterskip={1.0ex \@plus .2ex},
+		% Title Settings at the subection Level
+		\ctexset{subsection={
+			format={\bfseries\normalsize},
+			indent={0\ccwd},
+			afterskip={1.0ex \@plus .2ex},
+			}
 		}
-	}
-	% Title Settings at the subsubection Level
-	\ctexset{subsubsection={
-		format={\normalfont\normalsize},
-		indent={0\ccwd},
-		afterskip={1.0ex \@plus .2ex},
+		% Title Settings at the subsubection Level
+		\ctexset{subsubsection={
+			format={\normalfont\normalsize},
+			indent={0\ccwd},
+			afterskip={1.0ex \@plus .2ex},
+			}
 		}
-	}
 
-	\setcounter{secnumdepth}{4}  % 章节编号深度 (part 对应 -1)
-	\setcounter{tocdepth}{2}     % 目录深度 (part 对应 -1)
-	\linespread{1.3}             % 行距缩放因子
+		\setcounter{secnumdepth}{4}  % 章节编号深度 (part 对应 -1)
+		\setcounter{tocdepth}{2}     % 目录深度 (part 对应 -1)
+		\linespread{1.3}             % 行距缩放因子
 
-	% 使用该命令后，若每章最后一页为奇数页，则后面一页pagestyle设置为empty
-	\def\cleardoublepage{\clearpage%
-	\if@openright%
-	  \ifodd
-	    \c@page%
-	  \else%
-  	    \thispagestyle{empty}%
-  	    \hbox{}%
-	    \newpage%
-	  \fi%
-	\fi}
+		% 使用该命令后，若每章最后一页为奇数页，则后面一页pagestyle设置为empty
+		\def\cleardoublepage{\clearpage%
+		\if@openright%
+		\ifodd
+			\c@page%
+		\else%
+			\thispagestyle{empty}%
+			\hbox{}%
+			\newpage%
+		\fi%
+		\fi}
+
+		\renewcommand\tableofcontents{%
+			\if@twocolumn
+			\@restonecoltrue\onecolumn
+			\else
+			\@restonecolfalse
+			\fi
+			\chapter{\contentsname}%
+			\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}%
+			\@starttoc{toc}%
+			\if@restonecol\twocolumn\fi
+		}
+
+		\addtocontents{toc}{\let\string\CTEX@spaceChar\relax}
+		\@addtoreset{algorithm}{chapter}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%基础宏包导入和文章基本格式的设置
+% 基础宏包导入和文章基本格式的设置
 	% 目录超链接等包和设置
 	\RequirePackage{hyperref}
 		\hypersetup{colorlinks=true,linkcolor=blue,citecolor={blue}}
@@ -299,118 +311,120 @@
 	% \RequirePackage[defaultsups]{newtxtext}
 	% \RequirePackage{newtxmath}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 正文的环境和命令设置
+
+	% 旧定理类环境设置
+			% 	\newtheorem{definition}{定义}[chapter]
+			% 	\newtheorem{example}{例}[chapter]
+			% 	\newtheorem{lemma}{引理}[chapter]
+			% 	\newtheorem{theorem}{定理}[chapter]
+			% 	\newtheorem{remark}{注}[chapter]
+	% 新定理类环境设置
+		\newtheoremstyle{break}% name
+		{}%      Space above, empty = `usual value'
+		{}%      Space below
+		{\itshape}% Body font
+		{}%         Indent amount (empty = no indent, \parindent = para indent)
+		{\bfseries}% Thm head font
+		{.}%        Punctuation after thm head
+		{\newline}% Space after thm head: \newline = linebreak
+		{}%         Thm head spec
+		\theoremstyle{plain}
+			\newtheorem{algo}{算法~}[chapter]
+			\newtheorem{thm}{定理~}[chapter]
+			\newtheorem{lem}[thm]{引理~}
+			\newtheorem{prop}[thm]{命题~}
+			\newtheorem{cor}[thm]{推论~}
+		\theoremstyle{definition}
+			\newtheorem{defn}{定义~}[chapter]
+			\newtheorem{conj}{猜想~}[chapter]
+			\newtheorem{exmp}{例~}[chapter]
+			\newtheorem{rem}{注~}
+			\newtheorem{case}{情形~}
+		\theoremstyle{break}
+			\newtheorem{bthm}[thm]{定理~}
+			\newtheorem{blem}[thm]{引理~}
+			\newtheorem{bprop}[thm]{命题~}
+			\newtheorem{bcor}[thm]{推论~}
+			\renewcommand{\proofname}{\bfseries证明}
+
+	% 数学命令简化设置
+		\newcommand{\rd}{\mathrm{d}}
+		\newcommand{\dsN}{\mathbb{N}^{+}}
+		\newcommand{\dsR}{\mathbb{R}}
+		\newcommand{\dsC}{\mathbb{C}}
+		\renewcommand{\eqref}[1]{ (\ref{#1}) }
+		\newcommand{\jacp}{\alpha,\beta}
+		\newcommand{\funinner}[2]{\langle#1, #2\rangle}
+		\newcommand{\vecinner}[2]{(#1, #2)}
+
+	% Floating parameters
+		\renewcommand{\textfraction}{0.15}
+		\renewcommand{\topfraction}{0.85}
+		\renewcommand{\bottomfraction}{0.65}
+		\renewcommand{\floatpagefraction}{0.60}
+
+	% 定公式、图、表、算法、代码的编号为"3-1"的形式，即分隔符由.变为短杠
+		\renewcommand{\theequation}{\arabic{chapter}--\arabic{equation}}
+		\renewcommand{\thefigure}{\arabic{chapter}--\arabic{figure}}
+		\renewcommand\p@subfigure{\thefigure}
+		\renewcommand{\thetable}{\arabic{chapter}--\arabic{table}}
+		\renewcommand{\thealgorithm}{\arabic{chapter}--\arabic{algorithm}}
+		\AtBeginDocument{\renewcommand{\thelstlisting}{\arabic{chapter}--\arabic{lstlisting}}}
+
+
+
+	% 流程图定义基本形状
+		\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=2cm, minimum height=1cm, text centered, draw=black]
+		\tikzstyle{io} = [trapezium, trapezium left angle=75, trapezium right angle=105, minimum width=1cm, minimum height=1cm, text centered, draw=black]
+		\tikzstyle{process} = [rectangle, minimum width=2cm, minimum height=1cm, text centered, draw=black]
+		\tikzstyle{decision} = [diamond, minimum width=2cm, minimum height=1cm, text centered, draw=black]
+		\tikzstyle{arrow} = [thick,->,>=stealth]
+
+    %
+		\renewcommand{\labelitemi}{\ensuremath{\bullet}}
+		\newcommand{\cndash}{\rule{0.0em}{0pt}\rule[0.35em]{1.4em}{0.05em}\rule{0.2em}{0pt}}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 基础命令设置
-% 旧定理类环境设置
-		% 	\newtheorem{definition}{定义}[chapter]
-		% 	\newtheorem{example}{例}[chapter]
-		% 	\newtheorem{lemma}{引理}[chapter]
-		% 	\newtheorem{theorem}{定理}[chapter]
-		% 	\newtheorem{remark}{注}[chapter]
-% 新定理类环境设置
-	\newtheoremstyle{break}% name
-	{}%      Space above, empty = `usual value'
-	{}%      Space below
-	{\itshape}% Body font
-	{}%         Indent amount (empty = no indent, \parindent = para indent)
-	{\bfseries}% Thm head font
-	{.}%        Punctuation after thm head
-	{\newline}% Space after thm head: \newline = linebreak
-	{}%         Thm head spec
-	\theoremstyle{plain}
-		\newtheorem{algo}{算法~}[chapter]
-		\newtheorem{thm}{定理~}[chapter]
-		\newtheorem{lem}[thm]{引理~}
-		\newtheorem{prop}[thm]{命题~}
-		\newtheorem{cor}[thm]{推论~}
-	\theoremstyle{definition}
-		\newtheorem{defn}{定义~}[chapter]
-		\newtheorem{conj}{猜想~}[chapter]
-		\newtheorem{exmp}{例~}[chapter]
-		\newtheorem{rem}{注~}
-		\newtheorem{case}{情形~}
-	\theoremstyle{break}
-		\newtheorem{bthm}[thm]{定理~}
-		\newtheorem{blem}[thm]{引理~}
-		\newtheorem{bprop}[thm]{命题~}
-		\newtheorem{bcor}[thm]{推论~}
-		\renewcommand{\proofname}{\bfseries证明}
-
-% 数学命令简化设置
-	\newcommand{\rd}{\mathrm{d}}
-	\newcommand{\dsN}{\mathbb{N}^{+}}
-	\newcommand{\dsR}{\mathbb{R}}
-	\newcommand{\dsC}{\mathbb{C}}
-	\renewcommand{\eqref}[1]{ (\ref{#1}) }
-	\newcommand{\jacp}{\alpha,\beta}
-	\newcommand{\funinner}[2]{\langle#1, #2\rangle}
-	\newcommand{\vecinner}[2]{(#1, #2)}
-
-% Floating parameters
-	\renewcommand{\textfraction}{0.15}
-	\renewcommand{\topfraction}{0.85}
-	\renewcommand{\bottomfraction}{0.65}
-	\renewcommand{\floatpagefraction}{0.60}
-
-% 定公式、图、表、算法、代码的编号为"3-1"的形式，即分隔符由.变为短杠
-	\renewcommand{\theequation}{\arabic{chapter}--\arabic{equation}}
-	\renewcommand{\thefigure}{\arabic{chapter}--\arabic{figure}}
-	\renewcommand\p@subfigure{\thefigure}
-	\renewcommand{\thetable}{\arabic{chapter}--\arabic{table}}
-	\renewcommand{\thealgorithm}{\arabic{chapter}--\arabic{algorithm}}
-	\AtBeginDocument{\renewcommand{\thelstlisting}{\arabic{chapter}--\arabic{lstlisting}}}
-
-
-
-% 流程图定义基本形状
-	\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=2cm, minimum height=1cm, text centered, draw=black]
-	\tikzstyle{io} = [trapezium, trapezium left angle=75, trapezium right angle=105, minimum width=1cm, minimum height=1cm, text centered, draw=black]
-	\tikzstyle{process} = [rectangle, minimum width=2cm, minimum height=1cm, text centered, draw=black]
-	\tikzstyle{decision} = [diamond, minimum width=2cm, minimum height=1cm, text centered, draw=black]
-	\tikzstyle{arrow} = [thick,->,>=stealth]
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 设置标题页
-% 在tex文件中使用\command，在cls文件中使用\stu@command
-% define classification etc. 定义分类号等
-	\newcommand{\classification}[1][分类号]{\def\stu@classification{#1}}
-	\newcommand{\confidential}[1][密级]{\def\stu@confidential{#1}}
-	\newcommand{\UDC}[1][UDC]{\def\stu@UDC{#1}} 
-	\newcommand{\IDnumber}[1][学号]{\def\stu@IDnumber{#1}}
+% 标题页环境命令设置
+    % define classification etc. 定义分类号等
+	\newcommand{\classification}[1]{\def\stu@classification{#1}}
+	\newcommand{\confidential}[1]{\def\stu@confidential{#1}}
+	\newcommand{\UDC}[1]{\def\stu@UDC{#1}} 
+	\newcommand{\IDnumber}[1]{\def\stu@IDnumber{#1}}
 
 	% define title and author   定义中英文title和author
-	\newcommand{\cntitle}[1][中文标题]{\def\stu@cntitle{#1}}
-	% \newcommand{\scntitle}[1][中文标题2]{\def\stu@scntitle{#1}}
-	\newcommand{\entitle}[1][English Title]{\def\stu@entitle{#1}}
-	\newcommand{\sentitle}[1][]{\def\stu@sentitle{#1}}
+	\newcommand{\cntitle}[1]{\def\stu@cntitle{#1}}
+	% \newcommand{\scntitle}[1]{\def\stu@scntitle{#1}}
+	\newcommand{\entitle}[1]{\def\stu@entitle{#1}}
+	\newcommand{\sentitle}[1]{\def\stu@sentitle{#1}}
 	% 作者
-	\newcommand{\cnauthor}[1][姓名]{\def\stu@cnauthor{#1}}
-	\newcommand{\enauthor}[1][name]{\def\stu@enauthor{#1}}
+	\newcommand{\cnauthor}[1]{\def\stu@cnauthor{#1}}
+	\newcommand{\enauthor}[1]{\def\stu@enauthor{#1}}
 
 	% 指导教师
-	\newcommand{\cnadvisor}[1][指导老师]{\def\stu@cnadvisor{#1}}
-	\newcommand{\enadvisor}[1][advisor]{\def\stu@enadvisor{#1}}
+	\newcommand{\cnadvisor}[1]{\def\stu@cnadvisor{#1}}
+	\newcommand{\enadvisor}[1]{\def\stu@enadvisor{#1}}
 
-	\newcommand{\cnresearch}[1][研究方向]{\def\stu@cnresearch{#1}}
-	\newcommand{\enresearch}[1][research]{\def\stu@enresearch{#1}}
+	\newcommand{\cnresearch}[1]{\def\stu@cnresearch{#1}}
+	\newcommand{\enresearch}[1]{\def\stu@enresearch{#1}}
 
 	% major 二级学科
-	\newcommand{\cnmajor}[1][学科（专业）]{\def\stu@cnmajor{#1}}
-	\newcommand{\enmajor}[1][major]{\def\stu@enmajor{#1}}
+	\newcommand{\cnmajor}[1]{\def\stu@cnmajor{#1}}
+	\newcommand{\enmajor}[1]{\def\stu@enmajor{#1}}
 
 	% define time
-	\newcommand{\cnsubmitdate}[1][2000年1月1日]{\def\stu@cnsubmitdate{#1}}
-	\newcommand{\ensubmitdate}[1][Jan. 1st, 2000]{\def\stu@ensubmitdate{#1}}
-						% \newcommand{\jobbegin}[1][]{\def\stu@jobbegin{#1}}
-						% \newcommand{\jobend}[1][]{\def\stu@jobend{#1}}
-						% \newcommand{\reportfinish}[1][]{\def\stu@reportfinish{#1}}
+	\newcommand{\cnsubmitdate}[1]{\def\stu@cnsubmitdate{#1}}
+	\newcommand{\ensubmitdate}[1]{\def\stu@ensubmitdate{#1}}
+						% \newcommand{\jobbegin}[1]{\def\stu@jobbegin{#1}}
+						% \newcommand{\jobend}[1]{\def\stu@jobend{#1}}
+						% \newcommand{\reportfinish}[1]{\def\stu@reportfinish{#1}}
 
 	% 定义下划线的长度及线上内容
 	\def\stu@underline[#1]#2{\underline{\hbox to #1{\hfill#2\hfill}}}
 	\def\stuunderline{\@ifnextchar[\stu@underline\underline}
+
 
 	% rename标题页命令，建立中英文两个标题页
 	\renewcommand{\maketitle}{%
@@ -479,72 +493,11 @@
 		\end{center}
 	}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 原创性声明
-	\newcommand\declarerriginal{%
-	\cleardoublepage
-	\thispagestyle{empty}
-	\begin{center}
-		{\bfseries\zihao{3} 上海科技大学学位论文原创性声明}
-	\end{center}
-	\vskip 10pt
-	{\par\zihao{-4}本人郑重声明：所呈交的学位论文，是本人在导师的指导下， 
-	独立进行研究工作所取得的成果。除文中已经注明引用的内容外，本论文不包含
-	任何其他个人或集体已经发表或撰写过的作品成果。对本文的研究做出重要贡献
-	的个人和集体，均已在文中以明确方式标明。本人完全意识到本声明的法律结果
-	由本人承担。\par}
-	\vskip 60pt
-	\hspace{13em}学位论文作者签名：\hrulefill\hspace{1.5em}
-	\vskip 15pt
-	\hspace{16em}日\hspace{1em}期：\hrulefill\hrulefill 年 \hrulefill 月 \hrulefill 日\hspace{1em}
-	\cleardoublepage
-	}
-
-% 授权声明
-	\newcommand\declareauthorization{%
-	\cleardoublepage
-	\pagestyle{empty}
-	\begin{center}
-	{\bfseries\zihao{3} 上海科技大学学位论文版权使用授权书}
-	\end{center}
-	\vskip 10pt
-	{\par\zihao{-4}本学位论文作者完全了解学校有关保留、使用学位论文的规定，
-	同意学校保留并向国家有关部门或机构送交论文的复印件和电子版，
-	允许论文被查阅和借阅。本人授权上海交通大学可以将本学位论文的全部或部分内容
-	编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。\par
-	本学位论文属于\\
-	\hspace*{9em}\textbf{保\hspace{1em}密} \rule{3mm}{3mm}，
-	在~\hrulefill~年解密后适用本授权书。\\
-	\hspace*{9em}\textbf{不保密} \rule{3mm}{3mm} 。\\
-	（请在以上方框上打勾）
-	\par}
-	\vskip 60pt
-	学位论文作者签名：\hrulefill\hspace{3em}指导教师签名：\hrulefill
-	\vskip 15pt
-	日\hspace{1em}期：\hrulefill\hrulefill 年 \hrulefill 月 \hrulefill 日
-	\hfill \hspace{3em}日\hspace{1em}期：\hrulefill\hrulefill 年 \hrulefill 月 \hrulefill 日
-	}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 设置separatepage的格式
-% 中英文摘要
-	\newenvironment{cnabstract}{\chapter{摘\quad 要}}{}
-	\newcommand\cnkeywords[1]{\vspace{2ex}\noindent{\heiti 关键词:} #1}
-	\newenvironment{enabstract}{\chapter{Abstract}}{}
-	\newcommand\enkeywords[1]{\vspace{2ex}\noindent{\bfseries Keywords:~} #1}
-
-% 主要符号对照表
-	\newenvironment{mainsymbol}{\chapter{主要符号对照表}}{}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 致谢
-	\renewenvironment{thanks}{\chapter{致\quad 谢}}{}
-
-% 个人作品
+% 单独成页的环境和命令设置
+	% 个人作品
 	\newenvironment{publications}[1]
 	{\chapter{发表文章}%
 		\@mkboth{\MakeUppercase 发表文章}
@@ -566,50 +519,23 @@
 		{\@latex@warning{Empty `publications' environment}}%
 		\endlist}
 
-% 简介
-	\newenvironment{resume}{\chapter{简\quad 历}}{}
-	\newenvironment{resumesection}[1]
-	{{\noindent\normalfont\bfseries #1}
-		\list{}{\labelwidth\z@
-			\leftmargin 2\ccwd}
-		\item\relax}
-	{\endlist}
-	\newenvironment{resumelist}[1]
-	{{\noindent\normalfont\bfseries #1}
-		\list{}{\labelwidth\z@
-			\leftmargin 4\ccwd
-			\itemindent -2\ccwd
-			\listparindent\itemindent}
-		\item\relax}
-	{\endlist}
+	% 简介
 
+		\newenvironment{resumesection}[1]
+		{{\noindent\normalfont\bfseries #1}
+			\list{}{\labelwidth\z@
+				\leftmargin 2\ccwd}
+			\item\relax}
+		{\endlist}
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		\newenvironment{resumelist}[1]
+		{{\noindent\normalfont\bfseries #1}
+			\list{}{\labelwidth\z@
+				\leftmargin 4\ccwd
+				\itemindent -2\ccwd
+				\listparindent\itemindent}
+			\item\relax}
+		{\endlist}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 其他设置，用于临时放置新特性
-	\renewcommand\tableofcontents{%
-		\if@twocolumn
-		\@restonecoltrue\onecolumn
-		\else
-		\@restonecolfalse
-		\fi
-		\chapter{\contentsname}%
-		\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}%
-		\@starttoc{toc}%
-		\if@restonecol\twocolumn\fi
-	}
-
-	\addtocontents{toc}{\let\string\CTEX@spaceChar\relax}
-
-	\renewcommand{\labelitemi}{\ensuremath{\bullet}}
-
-	\newcommand{\cndash}{\rule{0.0em}{0pt}\rule[0.35em]{1.4em}{0.05em}\rule{0.2em}{0pt}}
-
-	\@addtoreset{algorithm}{chapter}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \endinput
